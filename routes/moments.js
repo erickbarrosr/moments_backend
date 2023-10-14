@@ -12,4 +12,8 @@ router.route("/moments").get((req, res) => momentController.index(req, res));
 
 router.route("/moments/:id").get((req, res) => momentController.show(req, res));
 
+router
+  .route("/moments/:id")
+  .put(upload.single("image"), (req, res) => momentController.update(req, res));
+
 module.exports = router;
