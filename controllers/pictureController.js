@@ -1,4 +1,3 @@
-/*
 const { Picture } = require("../models/Picture");
 
 const pictureController = {
@@ -24,4 +23,3 @@ const pictureController = {
 };
 
 module.exports = pictureController;
-*/
