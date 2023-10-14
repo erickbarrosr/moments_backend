@@ -2,7 +2,7 @@ const router = require("express").Router();
 const momentsRouter = require("./moments");
 //const picturesRouter = require("./pictures");
 
-router.route("/").get((req, res) => {
+router.route("/").get((res) => {
   res.status(200).json({ message: "Bem vindo ao Moments!" });
 });
 
