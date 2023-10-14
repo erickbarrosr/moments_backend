@@ -1,4 +1,4 @@
-const router = require("express").Router();
+/*const router = require("express").Router();
 const pictureController = require("../controllers/pictureController");
 const upload = require("../config/multer");
 
@@ -8,4 +8,4 @@ router
     pictureController.create(req, res)
   );
 
-module.exports = router;
+module.exports = router;*/
