@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const { pictureSchema } = require("./Picture");
 
 const momentSchema = new mongoose.Schema({
   title: String,
   author: String,
   description: String,
   image: {
-    type: [pictureSchema],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Picture",
   },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
