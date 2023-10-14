@@ -7,7 +7,7 @@ const momentController = {
       const { title, author, description } = req.body;
 
       if (!title) {
-        return res.status(422).json({ message: "Por favor, digite o título." });
+        return res.status(422).json({ message: "Título obrigatório." });
       }
 
       if (!author) {
@@ -15,7 +15,7 @@ const momentController = {
       }
 
       if (!description) {
-        return res.status(422).json({ message: "Digite uma descrição." });
+        return res.status(422).json({ message: "Descrição obrigatória." });
       }
 
       // Verifique se um arquivo de imagem foi enviado
@@ -30,6 +30,7 @@ const momentController = {
         name: req.file.originalname,
         src: req.file.path,
       });
+
       const savedPicture = await newPicture.save();
 
       const moment = {
@@ -39,11 +40,12 @@ const momentController = {
         image: savedPicture._id, // Associe o _id do modelo Picture
       };
 
-      const momentCreated = await Moment.create(moment);
+      const createdMoment = await Moment.create(moment);
 
-      res
-        .status(201)
-        .json({ momentCreated, message: "Momento criado com sucesso!" });
+      res.status(201).json({
+        createdMoment,
+        message: "Momento criado com sucesso!",
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Erro interno de servidor!" });
@@ -62,6 +64,7 @@ const momentController = {
   show: async (req, res) => {
     try {
       const id = req.params.id;
+
       const moment = await Moment.findById(id);
 
       if (!moment) {
@@ -69,6 +72,56 @@ const momentController = {
       }
 
       res.json(moment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Erro interno de servidor!" });
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const { title, author, description } = req.body;
+
+      if (!title) {
+        return res.status(422).json({ message: "Título obrigatório." });
+      }
+
+      if (!author) {
+        return res.status(422).json({ message: "Autor obrigatório." });
+      }
+
+      if (!description) {
+        return res.status(422).json({ message: "Descrição obrigatória." });
+      }
+
+      if (!req.file) {
+        return res
+          .status(422)
+          .json({ message: "Faça o upload de uma imagem." });
+      }
+
+      const newPicture = new Picture({
+        name: req.file.originalname,
+        src: req.file.path,
+      });
+
+      const savedPicture = await newPicture.save();
+
+      const moment = {
+        title,
+        author,
+        description,
+        image: savedPicture._id,
+      };
+
+      const updatedMoment = await Moment.findByIdAndUpdate(id, moment);
+
+      if (!updatedMoment) {
+        return res.status(404).json({ message: "Momento não encontrado." });
+      }
+
+      res.status(200).json({ updatedMoment, message: "Momento atualizado!" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Erro interno de servidor!" });
