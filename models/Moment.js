@@ -4,10 +4,18 @@ const momentSchema = new mongoose.Schema({
   title: String,
   author: String,
   description: String,
-  image: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Picture",
-  },
+  image: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Picture",
+    },
+  ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
