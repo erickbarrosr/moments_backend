@@ -3,7 +3,7 @@ const momentsRouter = require("./moments");
 const commentsRouter = require("./comments");
 //const picturesRouter = require("./pictures");
 
-router.route("/").post((res) => {
+router.route("/").get((req, res) => {
   res.status(200).json({ message: "Bem vindo ao Moments!" });
 });
 
