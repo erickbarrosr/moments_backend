@@ -51,7 +51,7 @@ const momentController = {
       res.status(500).json({ message: "Erro interno de servidor!" });
     }
   },
-  index: async (res) => {
+  index: async (req, res) => {
     try {
       const moments = await Moment.find();
 
