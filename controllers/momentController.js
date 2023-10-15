@@ -80,13 +80,14 @@ const momentController = {
   update: async (req, res) => {
     try {
       const id = req.params.id;
-      const { title, author, description, image } = req.body;
+      const { title, author, description, image, comments } = req.body;
 
       const momentUpdateData = {
         title,
         author,
         description,
         image,
+        comments,
       };
 
       // Verifica se a solicitação contém um arquivo de imagem
