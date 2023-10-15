@@ -1,25 +1,21 @@
 const router = require("express").Router();
 const momentController = require("../controllers/momentController");
 const upload = require("../config/multer");
+const commentController = require("../controllers/commentController");
 
+// Rotas para os momentos
 router
   .route("/moments")
-  .post(upload.single("image"), (req, res) =>
-    momentController.create(req, res)
-  );
-
-router.route("/moments").get((req, res) => momentController.index(req, res));
-
-router.route("/moments/:id").get((req, res) => momentController.show(req, res));
+  .post(upload.single("image"), momentController.create)
+  .get(momentController.index);
 
 router
   .route("/moments/:id")
-  .patch(upload.single("image"), (req, res) =>
-    momentController.update(req, res)
-  );
+  .get(momentController.show)
+  .patch(upload.single("image"), momentController.update)
+  .delete(momentController.destroy);
 
-router
-  .route("/moments/:id")
-  .delete((req, res) => momentController.destroy(req, res));
+// Rota para criar comentários em momentos
+router.route("/moments/:momentId/comments").post(commentController.create);
 
 module.exports = router;
