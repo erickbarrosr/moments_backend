@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const momentsRouter = require("./moments");
 const commentsRouter = require("./comments");
+const usersRouter = require("./users");
 //const picturesRouter = require("./pictures");
 
 router.route("/").get((req, res) => {
@@ -9,6 +10,7 @@ router.route("/").get((req, res) => {
 
 router.use("/", momentsRouter);
 router.use("/", commentsRouter);
+router.use("/", usersRouter);
 //router.use("/", picturesRouter);
 
 module.exports = router;
